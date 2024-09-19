@@ -12,8 +12,10 @@ html{
 }
 #top-header{
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 70px; 
+  grid-template-columns: 1fr 1fr; 
+}
+h1{
+  font-size: larger;
 }
 .siteName{
   display: flex;
@@ -61,9 +63,11 @@ nav li:hover{
 }
 .second-section{
 width: 100%;
+display: flex;
+justify-content: center;
 }
 .second-section img{
-  width: 100%;
+  width: 60%;
 }
 .tagbox{
   background-color: rgba(255, 255, 255, 0.5);;
@@ -84,7 +88,7 @@ width: 100%;
 .tagbox button{
   background-color: darkturquoise;
   border: none;
-  padding: 12px 24px;
+  padding: 5px 7px;
   text-align: center;
   font-size: 16px;
   cursor: pointer;
