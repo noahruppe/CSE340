@@ -66,9 +66,6 @@ width: 100%;
 display: flex;
 justify-content: center;
 }
-.second-section img{
-  width: 60%;
-}
 .tagbox{
   background-color: rgba(255, 255, 255, 0.5);;
   position: absolute;
@@ -99,6 +96,9 @@ justify-content: center;
   transition: box-shadow 0.3s ease; 
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   margin-bottom: 10px;
+}
+.reviews{
+  padding-top: 10px;
 }
 .boxes{
   display: grid;
@@ -168,6 +168,6 @@ justify-content: center;
   align-self: end;
 }
 footer{
-  position:sticky;
+  position:absolute;
   bottom: 5px;
 }
