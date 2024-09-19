@@ -101,6 +101,14 @@ justify-content: center;
 .reviews{
   padding-top: 10px;
 }
+.reviews h2{
+  padding: 0px;
+  margin: 0px;
+}
+.reviews ul{
+  margin: 0px;
+  margin-bottom: 5px;
+}
 .boxes{
   display: grid;
   grid-template-columns: repeat(2,1fr);
