@@ -72,7 +72,8 @@ justify-content: center;
 .tagbox{
   background-color: rgba(255, 255, 255, 0.5);;
   position: absolute;
-  top: 233px;
+  top: 148px;
+  left: 49px;
   color: darkturquoise;
 }
 .tagbox h2{
