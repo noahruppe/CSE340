@@ -232,6 +232,9 @@ footer{
   .tagbox ul{
     font-size: larger;
   }
+  .tagbox button{
+    padding: 10px 25px ;
+  }
   .reviews{
     grid-column: 1;
   }
