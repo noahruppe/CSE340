@@ -123,7 +123,7 @@ justify-content: center;
 }
 .container1{
   width: 100%;
-  background-color: darkturquoise;
+  background-color: darkblue;
   display: grid;
   justify-items: center;
 }
@@ -137,7 +137,7 @@ justify-content: center;
 }
 .container2{
   width: 100%;
-  background-color: darkturquoise;
+  background-color: darkblue;
   display: grid;
   justify-items: center;
 }
@@ -154,7 +154,7 @@ justify-content: center;
 }
 .container3{
   width: 100%;
-  background-color: darkturquoise;
+  background-color: darkblue;
   display: grid;
   justify-items: center;
 }
@@ -168,7 +168,7 @@ justify-content: center;
 }
 .container4{
   width: 100%;
-  background-color: darkturquoise;
+  background-color: darkblue;
   display: grid;
   justify-items: center;
 }
