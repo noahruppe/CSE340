@@ -225,7 +225,8 @@ footer{
   }
   .tagbox{
     top: 231px;
-    left: 266px;
+    left: 100px;
+    font-size: large;
   }
   .tagbox h2{
     font-size: xx-large;
@@ -257,4 +258,10 @@ footer{
     font-size: larger;
   }
   
+}
+@media (min-width:1200px){
+  .tagbox{
+    top: 231px;
+    left: 266px;
+  }
 }
