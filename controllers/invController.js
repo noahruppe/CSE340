@@ -3,6 +3,7 @@ const utilities = require("../utilities/")
 
 const invCont = {}
 const invDetail = {}
+const errortry = {}
 
 /* ***************************
  *  Build inventory by classification view
@@ -39,7 +40,7 @@ invDetail.buildByInvId = async function (req,res,next){
 }
 
 //try this 
-invCont.triggerError = (req, res, next) => {
+errortry.triggerError = (req, res, next) => {
     // Intentional error to simulate a 500 error
     throw new Error("Oh no there was a crash maybe try a different route");
 };
@@ -47,4 +48,5 @@ invCont.triggerError = (req, res, next) => {
 module.exports = {
     invCont,
     invDetail,
+    errortry,
 };
