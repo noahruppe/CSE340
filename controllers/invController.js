@@ -2,6 +2,7 @@ const invModel = require("../models/inventory-model")
 const utilities = require("../utilities/")
 
 const invCont = {}
+const invDetail = {}
 
 /* ***************************
  *  Build inventory by classification view
@@ -19,4 +20,31 @@ invCont.buildByClassificationId = async function (req, res, next) {
     })
   }
 
-  module.exports = invCont
+/* ***************************
+ *  grabe details
+ * ************************** */
+invDetail.buildByInvId = async function (req,res,next){
+    const inv_id = req.params.invId
+    const data = await invModel.getDetailsByInvId(inv_id)
+    const lists = await utilities.buildInvIdInfo(data)
+    let nav = await utilities.getNav()
+    const makename = data[0].inv_make
+    const modelname = data[0].inv_model
+    const caryear = data[0].inv_year
+    res.render("./inventory/details",{
+        title: caryear + " " + makename + " " + modelname,
+        nav,
+        lists,
+    })
+}
+
+//try this 
+invCont.triggerError = (req, res, next) => {
+    // Intentional error to simulate a 500 error
+    throw new Error("Oh no there was a crash maybe try a different route");
+};
+
+module.exports = {
+    invCont,
+    invDetail,
+};
