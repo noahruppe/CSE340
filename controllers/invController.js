@@ -39,14 +39,14 @@ invDetail.buildByInvId = async function (req,res,next){
     })
 }
 
-//try this 
-errortry.triggerError = (req, res, next) => {
-    // Intentional error to simulate a 500 error
-    throw new Error("Oh no there was a crash maybe try a different route");
-};
+// //try this 
+// errortry.triggerError = (req, res, next) => {
+//     // Intentional error to simulate a 500 error
+//     throw new Error("Oh no there was a crash maybe try a different route");
+// };
 
 module.exports = {
     invCont,
     invDetail,
-    errortry,
+    // errortry,
 };

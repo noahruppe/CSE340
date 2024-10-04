@@ -10,6 +10,6 @@ router.get("/type/:classificationId", utilities.handleErrors(invController.invCo
 
 router.get("/detail/:invId", utilities.handleErrors(invController.invDetail.buildByInvId));
 
-router.get("/trigger-error", utilities.handleErrors(invController.errortry.triggerError));
+// router.get("/trigger-error", utilities.handleErrors(invController.errortry.triggerError));
 
 module.exports = router;
