@@ -1,4 +1,4 @@
-const utilities = require("../CSE340/utilities/")
+const utilities = require("../CSE340/utilities/index.js")
 
 /* ******************************************
  * This server.js file is the primary file of the 
@@ -41,14 +41,26 @@ app.use(async(req,res,next,) =>{
 * Place after all other middleware
 *************************/
 app.use(async (err, req, res, next) => {
-  let nav = await utilities.getNav()
-  console.error(`Error at: "${req.originalUrl}": ${err.message}`)
+  let nav = await utilities.getNav();
+  console.error(`Error at: "${req.originalUrl}": ${err.message}`);
+  
+  let message; // Declare a variable for the message
+
+  // Custom messages for different error types
+  if (err.status === 404) {
+      message = err.message; // Specific message for 404 errors
+  } else if (err.status === 500) {
+      message = 'Oh no! There was a server error. Please try again later.'; // Message for 500 errors
+  } else {
+      message = 'Oh no! There was a crash. Maybe try a different route?'; // General message for other errors
+  }
+
   res.render("errors/error", {
-    title: err.status || 'Server Error',
-    message: err.message,
-    nav
-  })
-})
+      title: err.status || 'Server Error', // Use the status for the title
+      message, // Use the determined message
+      nav
+  });
+});
 
 
 
