@@ -6,7 +6,7 @@ const utilities = require("../utilities/")
 
 //utilities.handleErrors
 
-router.get("/type/:classificationId", (invController.invCont.buildByClassificationId));
+router.get("/type/:classificationId", (invController.buildByClassificationId));
 
 // router.get("/detail/:invId", utilities.handleErrors(invController.invDetail.buildByInvId));
 

@@ -45,10 +45,7 @@ invCont.buildByClassificationId = async function (req, res, next) {
 //     throw new Error("Oh no there was a crash maybe try a different route");
 // };
 
-module.exports = {
-    invCont,
-    
-};
+module.exports = invCont
 
 // invDetail,
     // errortry,
