@@ -49,4 +49,6 @@ async function getDetailsByInvId(inv_id) {
 
 
 
-  module.exports = {getClassifications, getInventoryByClassificationId,getDetailsByInvId};
+  module.exports = {getClassifications, getInventoryByClassificationId};
+
+  // getDetailsByInvId
