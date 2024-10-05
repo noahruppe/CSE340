@@ -1,5 +1,7 @@
 const utilities = require("../CSE340/utilities/");
 
+console.log(require('path').resolve(__dirname, '../CSE340/utilities/'));
+
 /* ******************************************
  * This server.js file is the primary file of the 
  * application. It is used to control the project.
