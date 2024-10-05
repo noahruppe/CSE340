@@ -35,9 +35,9 @@ app.use(async (req, res, next) => {
 });
 
 /* ***********************
-* Express Error Handler
-* Place after all other middleware
-*************************/
+ * Express Error Handler
+ * Place after all other middleware
+ *************************/
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav();
   console.error(`Error at: "${req.originalUrl}": ${err.message}`);
@@ -62,14 +62,14 @@ app.use(async (err, req, res, next) => {
 
 /* ***********************
  * Local Server Information
- * Ensure we use Render's dynamic PORT variable or fallback to 3000 for local
+ * Use Render's dynamic PORT variable for deployment
  *************************/
-const port = process.env.PORT || 3000;
-const host = process.env.HOST || "localhost"; // Default to localhost in case HOST isn't provided
+const port = process.env.PORT || 4000; // Default to 4000 for local testing
+const host = '0.0.0.0'; // Bind to all IP addresses
 
 /* ***********************
  * Log statement to confirm server operation
  *************************/
-app.listen(port, () => {
+app.listen(port, host, () => {
   console.log(`App listening on ${host}:${port}`);
 });
