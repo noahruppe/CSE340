@@ -424,7 +424,7 @@ footer{
     left: 20%;
   }
 }
-@media (min-width:1187){
+@media (min-width:1187px){
   .tagbox{
     left: 15%;
   }
