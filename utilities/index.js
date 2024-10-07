@@ -61,26 +61,25 @@ Util.buildClassificationGrid = async function(data){
 /* ****************************************
  build for details 
  **************************************** */
-Util.buildInvIdInfo = async function(data){
+ Util.buildInvIdInfo = async function(data) {
     let lists;
-    if(data.length > 0 ){
-        lists = '<div id="inv-details-display">'
+    if(data.length > 0) {
+        lists = '<div id="inv-details-display">';
         data.forEach(vehicle => {
-            lists += '<img src="' + vehicle.inv_image +'"/>'
-            lists += '<ul id="groupings">'
-            lists += '<li>'
-            lists += '<h2>'+vehicle.inv_make + ' ' + vehicle.inv_model + ' '+'Details</h2>'
-            lists += '<span>Price: $' 
-            + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
-            lists += '<p class="p1">Description: ' + vehicle.inv_description + '</p>'
-            lists += '<p class="p2">Color: ' + vehicle.inv_color + '</p>'
-            lists += '<p class="p3">Miles: ' + vehicle.inv_miles + '</p>'
-            lists += '</li>'
-            lists += '</div>'
-        })
-        lists += '</ul>'
-    }else{
-        lists += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+            lists += '<img src="' + vehicle.inv_image + '" alt="Image of ' + vehicle.inv_name + '">';
+            lists += '<ul id="groupings">';
+            lists += '<li>';
+            lists += '<h2>' + vehicle.inv_make + ' ' + vehicle.inv_model + ' ' + 'Details</h2>';
+            lists += '<span>Price: $' + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>';
+            lists += '<p class="p1">Description: ' + vehicle.inv_description + '</p>';
+            lists += '<p class="p2">Color: ' + vehicle.inv_color + '</p>';
+            lists += '<p class="p3">Miles: ' + vehicle.inv_miles + '</p>';
+            lists += '</li>';
+            lists += '</ul>'; // Correctly close the <ul> here
+        });
+        lists += '</div>'; // Move the closing </div> outside the loop to wrap the entire content
+    } else {
+        lists += '<p class="notice">Sorry, no matching vehicles could be found.</p>';
     }
     return lists;
 }
