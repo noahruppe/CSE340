@@ -73,7 +73,7 @@ Util.buildClassificationGrid = async function(data){
             lists += '<span>Price: $' + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>';
             lists += '<p class="p1">Description: ' + vehicle.inv_description + '</p>';
             lists += '<p class="p2">Color: ' + vehicle.inv_color + '</p>';
-            lists += '<p class="p3">Miles: ' + vehicle.inv_miles + '</p>';
+            lists += '<p class="p3">Miles: ' + new Intl.NumberFormat('en-US').format(vehicle.inv_miles) + '</p>';
             lists += '</li>';
             lists += '</ul>'; // Correctly close the <ul> here
         });
