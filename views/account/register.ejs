@@ -1,0 +1,47 @@
+<% if (title) {%>
+    <h1><%= title%> </h1>
+    <% }else {
+        res.redirect('/')
+    }%>
+
+    <%- messages() %>
+    <div class="position-box">
+        <div class="login-set-up">
+            <form action="/account/register" method="post">
+                <div>
+                    <label for="Name">First Name: </label>
+                    <input type="text" name="account_firstname" id="the-firstname" required>
+                </div>
+                <div>
+                    <label for="Name">Last Name: </label>
+                    <input type="text" name="account_lastname" id="the-lastname" required>
+                </div>
+                <div>
+                    <label for="Email">Email: </label>
+                    <input type="email" name="account_email" id="reg-email" required>
+                </div>
+                <div>
+                    <label for="password">Password: </label>
+                    <span class="infosaid">Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span> 
+                    <input type="password" name="account_password" id="reg-password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+                    <span id="secret-password">Show Password</span>
+                </div>
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        const secretpassword = document.querySelector("#secret-password");
+        secretpassword.addEventListener("click", function(){
+        const secretpasswordinput = document.getElementById("reg-password");
+        const type = secretpasswordinput.getAttribute("type");
+        if (type === "password") {
+            secretpasswordinput.setAttribute("type", "text");
+            secretpassword.innerHTML = "Hide Password";
+
+        }else {
+            secretpasswordinput.setAttribute("type", "password");
+            secretpassword.innerHTML = "Show Password";
+        }
+    });
+    </script>

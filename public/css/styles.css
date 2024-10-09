@@ -193,8 +193,8 @@ footer{
 }
 
 #inv-display{
-  justify-items: center;
-  flex-direction: row;
+  display: grid;
+  justify-content: center;
 }
 #inv-display li{
   list-style-type: none;
@@ -261,6 +261,40 @@ footer{
 }
 .p3{
   background-color: #f5f5f5;
+}
+.position-box{
+  display: grid;
+  grid-template-columns: repeat(12,1fr);
+}
+.login-set-up{
+  border: solid 5px darkblue;
+  display: flex;
+  flex-direction: column;
+  grid-column: 3/10;
+  border-radius:9% ;
+  justify-content: space-between;
+  padding: 25px;
+  background-color: #eae9e9;
+
+}
+.login-set-up div{
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+}
+.login-set-up button{
+  background-color: darkblue;
+  color: white;
+  width: 35%;
+  margin-top: 20px;
+}
+#secret-password{
+  background-color: darkblue;
+  color: white;
+  border: 3px solid black;
+  border-radius: 8%;
+  width: 55%;
+  margin-top: 10px;
 }
 
 @media (min-width:900px){
@@ -350,6 +384,7 @@ footer{
     justify-items: center;
     grid-template-rows: auto;
     grid-row-gap: 30px;
+    padding: 0px;
   }
   #inv-display li{
     list-style-type: none;
@@ -418,6 +453,43 @@ footer{
   .p3{
     background-color: #f5f5f5;
   }
+  .position-box{
+    display: grid;
+    grid-template-columns: repeat(12,1fr);
+  }
+  .login-set-up{
+    border: solid 5px darkblue;
+    display: flex;
+    flex-direction: column;
+    grid-column: 5/9;
+    border-radius:9% ;
+    justify-content: space-between;
+    padding: 25px;
+    background-color: #eae9e9;
+
+  }
+  .login-set-up div{
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+  }
+  .login-set-up button{
+    background-color: darkblue;
+    color: white;
+    width: 35%;
+    margin-top: 20px;
+  }
+  #secret-password{
+    background-color: darkblue;
+    color: white;
+    border: 3px solid black;
+    border-radius: 8%;
+    width: 55%;
+    margin-top: 10px;
+  }
+  .infosaid{
+    margin-top: 8px;
+  }
 }
 @media (min-width: 1200px){
   .tagbox{
@@ -427,5 +499,13 @@ footer{
 @media (min-width:1187px){
   .tagbox{
     left: 15%;
+  }
+}
+@media (max-width: 400px){
+  .login-set-up button{
+    width: 75%;
+  }
+  #secret-password{
+    width: 75%;
   }
 }
