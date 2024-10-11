@@ -82,7 +82,7 @@ async function submitClassification (req,res) {
     const regResult = await invModel.submitClassification(
         classification_name
     )
-
+// res.status(200).redirect("/inv");
     
 
     if (regResult){
@@ -90,18 +90,18 @@ async function submitClassification (req,res) {
             "notice",
             `Congratulations, a new classification has been made: ${classification_name}.`
         )
-        res.status(200).render("/", {
-            title: "Login",
+        res.status(200).render("inventory/management", {
+            title: "Vehicle Management",
             nav,
             errors: null,
           })
     } else{
         req.flash("error", "Failed to add the classification. Please try again.");
-        return res.status(500).render("inventory/add-classification", {
-            title: "Add Classification",
+        res.status(501).render("account/register", {
+            title: "Registration",
             nav,
             errors: null,
-        })
+          })
     }
 }
 
