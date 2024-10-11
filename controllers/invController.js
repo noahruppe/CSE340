@@ -5,6 +5,7 @@ const invCont = {}
 const invDetail = {}
 const errortry = {}
 
+
 /* ***************************
  *  Build inventory by classification view
  * ************************** */
@@ -45,8 +46,70 @@ errortry.triggerError = (req, res, next) => {
     throw new Error("Oh no there was a crash maybe try a different route");
 };
 
+/* ***************************
+ *  build the management view
+ * ************************** */
+async function buildManagement (req,res,next){
+    let nav = await utilities.getNav()
+    res.render("./inventory/management",{
+        title: "Vehicle Management",
+        nav,
+        errors: null,
+    })
+}
+/* ***************************
+ *  build the classification form view
+ * ************************** */
+
+
+async function buildClassificationForm (req,res,next){
+    let nav = await utilities.getNav()
+    res.render("./inventory/add-classification",{
+        title: "Add Classification",
+        nav,
+        errors: null,
+    })
+}
+
+/* ****************************************
+*  Process Registration
+* *************************************** */
+
+async function submitClassification (req,res) {
+    let nav = await utilities.getNav()
+    const {classification_name} = req.body
+
+    const regResult = await invModel.submitClassification(
+        classification_name
+    )
+
+    
+
+    if (regResult){
+        req.flash(
+            "notice",
+            `Congratulations, a new classification has been made: ${classification_name}.`
+        )
+        res.status(200).render("/", {
+            title: "Login",
+            nav,
+            errors: null,
+          })
+    } else{
+        req.flash("error", "Failed to add the classification. Please try again.");
+        return res.status(500).render("inventory/add-classification", {
+            title: "Add Classification",
+            nav,
+            errors: null,
+        })
+    }
+}
+
 module.exports = {
     invCont,
     invDetail,
     errortry,
+    buildManagement,
+    buildClassificationForm,
+    submitClassification,
 };

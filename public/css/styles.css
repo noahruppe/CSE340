@@ -490,6 +490,18 @@ footer{
   .infosaid{
     margin-top: 8px;
   }
+  .links-management{
+    display: flex;
+    flex-direction: column;
+    font-size: x-large;
+    margin: 60px;
+  }
+  .links-management2{
+    display: flex;
+    flex-direction: column;
+    font-size: x-large;
+    margin: 60px;
+  }
 }
 @media (min-width: 1200px){
   .tagbox{
