@@ -17,7 +17,7 @@ validate.classificationRules = () =>{
             .custom(async (classification_name) => {
                 const classificationExists = await invModel.checkExistingClassification(classification_name)
                 if (classificationExists){
-                  throw new Error("Email exists. Please log in or use different email")
+                  throw new Error("Classification exists. Please choose a different classification")
                 }
               })
     ]
