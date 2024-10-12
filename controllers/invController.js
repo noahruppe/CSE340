@@ -120,6 +120,7 @@ inventory.buildInventoryForm = async function (req, res, next) {
       title: "Add Inventory",
       nav,
       drop,
+      errors:null
     })
   }
 

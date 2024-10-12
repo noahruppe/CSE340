@@ -17,7 +17,7 @@ router.get("/", utilities.handleErrors(invController.buildManagement));
 
 router.get("/classification", utilities.handleErrors(invController.buildClassificationForm));
 
-router.get("/inventory", utilities.handleErrors(invController.inventory.buildInventoryForm));
+router.get("/add-inventory", utilities.handleErrors(invController.inventory.buildInventoryForm));
 
 router.post("/classification", 
     regValidate.classificationRules(),
@@ -25,7 +25,7 @@ router.post("/classification",
     utilities.handleErrors(invController.submitClassification)
 )
 
-router.post("/inventory",
+router.post("/add-inventory",
     regValidate.inventoryRules(),
     regValidate.checkInventoryData,
     utilities.handleErrors(invController.submitInventory)

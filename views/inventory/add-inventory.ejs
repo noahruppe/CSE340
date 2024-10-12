@@ -7,7 +7,13 @@
 
 <%- messages() %>
     
-
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+  <%  }) %>
+   </ul>
+  <% } %>
 
 <div class="position-box">
     <div class="login-set-up">
