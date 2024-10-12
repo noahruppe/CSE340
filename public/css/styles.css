@@ -270,7 +270,7 @@ footer{
   border: solid 5px darkblue;
   display: flex;
   flex-direction: column;
-  grid-column: 3/10;
+  grid-column: 1/13;
   border-radius:9% ;
   justify-content: space-between;
   padding: 25px;

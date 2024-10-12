@@ -84,8 +84,27 @@ Util.buildClassificationGrid = async function(data){
     return lists;
 }
 
-
-
+/* ****************************************
+ build for drop down 
+ **************************************** */
+ Util.buildClassificationDrop = async function (classification_id = null) {
+  let data = await invModel.getClassifications()
+  let drop =
+    '<select name="classification_id" id="drop" required>'
+  drop += "<option value=''>Choose a Classification</option>"
+  data.rows.forEach((row) => {
+    drop += '<option value="' + row.classification_id + '"'
+    if (
+      classification_id != null &&
+      row.classification_id == classification_id
+    ) {
+      drop += " selected "
+    }
+    drop += ">" + row.classification_name + "</option>"
+  })
+  drop += "</select>"
+  return drop
+}
 
 
 /* ****************************************

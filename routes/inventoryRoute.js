@@ -15,12 +15,20 @@ router.get("/trigger-error", utilities.handleErrors(invController.errortry.trigg
 
 router.get("/", utilities.handleErrors(invController.buildManagement));
 
-router.get("/classification", utilities.handleErrors(invController.buildClassificationForm))
+router.get("/classification", utilities.handleErrors(invController.buildClassificationForm));
+
+router.get("/inventory", utilities.handleErrors(invController.inventory.buildInventoryForm));
 
 router.post("/classification", 
     regValidate.classificationRules(),
     regValidate.checkClassificationData,
     utilities.handleErrors(invController.submitClassification)
+)
+
+router.post("/inventory",
+    regValidate.inventoryRules(),
+    regValidate.checkInventoryData,
+    utilities.handleErrors(invController.submitInventory)
 )
 
 module.exports = router;

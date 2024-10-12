@@ -4,6 +4,7 @@ const utilities = require("../utilities/")
 const invCont = {}
 const invDetail = {}
 const errortry = {}
+const inventory = {}
 
 
 /* ***************************
@@ -105,6 +106,69 @@ async function submitClassification (req,res) {
     }
 }
 
+/* ****************************************
+*  build the drop down list
+* *************************************** */
+
+inventory.buildInventoryForm = async function (req, res, next) {
+    const classification_id = req.params.classificationId
+    const data = await invModel.getInventoryByClassificationId(classification_id)
+    const drop = await utilities.buildClassificationDrop(data)
+    let nav = await utilities.getNav()
+    const className = data.length > 0 ? data[0].classification_name : 'Unknown';
+    res.render("./inventory/add-inventory", {
+      title: "Add Inventory",
+      nav,
+      drop,
+    })
+  }
+
+/* ****************************************
+*  process the inventory 
+* *************************************** */
+
+async function submitInventory (req,res) {
+    let nav = await utilities.getNav()
+    const {inv_make,inv_model, inv_year, inv_description, inv_image,inv_thumbnail,inv_price, inv_miles,inv_color} = req.body
+
+
+    const regResult = await invModel.submitInventory(
+        inv_make,
+        inv_model,
+        inv_year,
+        inv_description,
+        inv_image,
+        inv_thumbnail,
+        inv_price,
+        inv_miles,
+        inv_color
+      )
+    
+
+    if (regResult){
+        req.flash(
+            "notice",
+            `Congratulations, new inventory has been added: ${inv_make} ${inv_model}.`
+        )
+        res.status(200).render("inventory/management", {
+            title: "Vehicle Management",
+            nav,
+            errors: null,
+          })
+    } else{
+        req.flash("error", "Failed to add the classification. Please try again.");
+        res.status(501).render("inventory/add-inventory", {
+            title: "Registration",
+            nav,
+            errors: null,
+          })
+    }
+}
+
+
+
+
+
 module.exports = {
     invCont,
     invDetail,
@@ -112,4 +176,6 @@ module.exports = {
     buildManagement,
     buildClassificationForm,
     submitClassification,
+    inventory,
+    submitInventory,
 };
