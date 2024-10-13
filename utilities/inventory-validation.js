@@ -98,8 +98,6 @@ validate.inventoryRules = () =>{
         .escape()
         .notEmpty()
         .withMessage("Inventory Image is required")
-        .isURL()
-        .withMessage("Inventory Image must be a valid URL")
         .custom((value, { req }) => {
 
             const defaultImage = '/images/vehicles/no-image.png';
@@ -114,8 +112,6 @@ validate.inventoryRules = () =>{
         .escape()
         .notEmpty()
         .withMessage("Inventory Image is required")
-        .isURL()
-        .withMessage("Inventory Image must be a valid URL")
         .custom((value, { req }) => {
             
             const defaultImage = '/images/vehicles/no-image.png';
