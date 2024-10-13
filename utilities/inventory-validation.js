@@ -130,7 +130,7 @@ validate.inventoryRules = () =>{
         .escape()
         .notEmpty()
         .withMessage("Inventory Price is required")
-        .isDecimal({ decimal_digits: '2' }) // Allows up to 2 decimal places
+        .isDecimal({ decimal_digits: '2' }) 
         .withMessage("Inventory Price must be a valid decimal number with up to 2 decimal places")
         .isNumeric()
         .withMessage("Inventory Price must be a numeric value"),
@@ -164,10 +164,12 @@ validate.checkInventoryData = async (req, res, next) => {
     errors = validationResult(req)
     if (!errors.isEmpty()) {
       let nav = await utilities.getNav()
-      res.render("/inventory", {
+      let drop = await utilities.buildClassificationDrop();
+      res.render("./inventory/add-inventory", {
         errors,
         title: "Add Inventory",
         nav,
+        drop,
         inv_make,
         inv_model,
         inv_year,

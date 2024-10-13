@@ -52,7 +52,7 @@ errortry.triggerError = (req, res, next) => {
  * ************************** */
 async function buildManagement (req,res,next){
     let nav = await utilities.getNav()
-    res.render("./inventory/management",{
+    res.render("inventory/management",{
         title: "Vehicle Management",
         nav,
         errors: null,
@@ -65,7 +65,7 @@ async function buildManagement (req,res,next){
 
 async function buildClassificationForm (req,res,next){
     let nav = await utilities.getNav()
-    res.render("./inventory/add-classification",{
+    res.render("inventory/add-classification",{
         title: "Add Classification",
         nav,
         errors: null,
@@ -115,8 +115,7 @@ inventory.buildInventoryForm = async function (req, res, next) {
     const data = await invModel.getInventoryByClassificationId(classification_id)
     const drop = await utilities.buildClassificationDrop(data)
     let nav = await utilities.getNav()
-    const className = data.length > 0 ? data[0].classification_name : 'Unknown';
-    res.render("./inventory/add-inventory", {
+    res.render("inventory/add-inventory", {
       title: "Add Inventory",
       nav,
       drop,
