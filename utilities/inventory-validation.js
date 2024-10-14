@@ -145,7 +145,13 @@ validate.inventoryRules = () =>{
         .notEmpty()
         .withMessage("Inventory Color is required")
         .matches(/^[A-Za-z]+$/)
-        .withMessage("Inventory Color must contain only letters")
+        .withMessage("Inventory Color must contain only letters"),
+
+        body("classification_id")
+        .notEmpty()
+        .withMessage("Classification is required")
+        .isInt({ min: 1 })
+        .withMessage("Please select a valid classification")
     ]
 }
 
@@ -155,7 +161,7 @@ validate.inventoryRules = () =>{
  * ***************************** */
 validate.checkInventoryData = async (req, res, next) => {
 
-    const { inv_make, inv_model,inv_year,inv_description,inv_image,inv_thumbnail,inv_price,inv_miles,inv_color } = req.body;
+    const { inv_make, inv_model,inv_year,inv_description,inv_image,inv_thumbnail,inv_price,inv_miles,inv_color, classification_id } = req.body;
     let errors = []
     errors = validationResult(req)
     if (!errors.isEmpty()) {
@@ -175,6 +181,7 @@ validate.checkInventoryData = async (req, res, next) => {
         inv_price,
         inv_miles,
         inv_color,
+        classification_id,
       })
       return
     }
