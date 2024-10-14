@@ -12,6 +12,7 @@ const session = require("express-session");
 const pool = require("./database/")
 const accountrouter = require("./routes/accountRoute")
 const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
 
 /* ******************************************
  * This server.js file is the primary file of the 
@@ -49,6 +50,7 @@ app.use(function(req,res,next){
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
+app.use(cookieParser())
 
 
 
