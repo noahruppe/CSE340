@@ -19,6 +19,10 @@ router.get("/classification", utilities.handleErrors(invController.buildClassifi
 
 router.get("/add-inventory", utilities.handleErrors(invController.inventory.buildInventoryForm));
 
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.invCont.getInventoryJSON))
+
+router.get("/edit/:inv_id", utilities.handleErrors(invController.invCont.editInventoryView))
+
 router.post("/classification", 
     regValidate.classificationRules(),
     regValidate.checkClassificationData,

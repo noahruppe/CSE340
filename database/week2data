@@ -1,5 +1,5 @@
 CREATE TYPE public.account_type AS ENUM
-    ('Client', 'Admin');
+    ('Client', 'Admin','Employee');
 
 ALTER TYPE public.account_type
     OWNER TO cse340_database_8nvw_user;

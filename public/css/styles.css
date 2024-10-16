@@ -502,6 +502,22 @@ footer{
     font-size: x-large;
     margin: 60px;
   }
+  #inventoryDisplay{
+    background-color: rgb(206 206 206);
+    margin-top: 20px;
+  }
+  #inventoryDisplay thead{
+    background-color: black;
+    color: white;
+  }
+  #inventoryDisplay tbody tr{
+    background-color: white;
+    text-decoration: none;
+  }
+  #inventoryDisplay tbody tr:nth-child(odd){
+    background-color: rgb(206 206 206);
+  }
+
 }
 @media (min-width: 1200px){
   .tagbox{
