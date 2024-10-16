@@ -17,7 +17,7 @@
 
 <div class="position-box">
     <div class="login-set-up">
-        <form action="edit-inventory" method="post">
+        <form action="edit" method="post" id="updateForm">
             <div>
                 <%- classificationSelect %>
             </div>
@@ -35,7 +35,7 @@
             </div>
             <div>
                 <label for="inv_description">Inventory Description: </label>
-                <textarea name="inv_description" id="inv_description" rows="5" cols="50" required <%= locals.inv_description%>></textarea>
+                <textarea name="inv_description" rows="4" cols="50"><%= inv_description %></textarea>
             </div>
             <div>
                 <label for="inv_image">Vehicle Image Path:</label>
@@ -57,7 +57,12 @@
                 <label for="inv_color">Vehicle Color:</label>
                 <input type="text" name="inv_color" id="inv_color" required placeholder="Enter color" value="<%= locals.inv_color%>">
             </div>
-            <button type="submit">Update Vehicle</button>
+            <button type="submit" disabled >Update Vehicle</button>
+            <input type="hidden" name="inv_id"
+            <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+            <% } %>>
         </form>
     </div>
 </div>
+
+<script src="../../js/inv-update.js"></script>
