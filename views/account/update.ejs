@@ -1,0 +1,47 @@
+<% if (title) {%>
+    <h1><%= title%> </h1>
+    <% }else {
+        res.redirect('/')
+    }%>
+
+    <%- messages() %>
+    
+    <% if (errors) { %>
+        <ul class="notice">
+       <% errors.array().forEach(error => { %>
+         <li><%= error.msg %></li>
+      <%  }) %>
+       </ul>
+      <% } %>
+
+<form action="update" method="post">
+    <div class="info1">
+        <div>
+            <label for="Name">First Name: </label>
+            <input type="text" name="account_firstname" id="account_firstname" required pattern="^[A-Za-z]+([ '-][A-Za-z]+)*$" 
+            title="Please enter a valid first name (letters only, with optional spaces, hyphens, or apostrophes)." value="<% locals.account_firstname%>">
+        </div>
+        <div>
+            <label for="Name">Last Name: </label>
+            <input type="text" name="account_lastname" id="the-lastname" required pattern="^[A-Za-z]+([ '-][A-Za-z]+)*$" 
+            title="Please enter a valid first name (letters only, with optional spaces, hyphens, or apostrophes)." value="<%= locals.account_lastname %>">
+        </div>
+        <div>
+            <label for="Email">Email: </label>
+            <input type="email" name="account_email" id="reg-email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"  value="<%= locals.account_email %>">
+        </div>
+    </div>
+    <button type="submit"></button>
+    <input type="hidden" name="account_id" id="account_id">
+</form>
+
+<h2>Update Password</h2>
+<div class="passwordform">
+    <form action="update">
+        <label for="password">Password: </label>
+        <p>*Note Your original password will be changed.</p>
+        <span class="infosaid">Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span> 
+        <input type="password" name="account_password" id="reg-password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+        <span id="secret-password">Show Password</span>
+    </form>
+</div>

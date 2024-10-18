@@ -113,17 +113,25 @@ async function accountLogin(req, res) {
  }
 
 /* ****************************************
-*  deliver the register view
+*  once logged in 
 * *************************************** */
 
-async function accountManagement (req,res,next){
-  let nav = await utilities.getNav()
-  res.render('account/account-management',{
+async function accountManagement(req, res, next) {
+  const accountData = res.locals.accountData;
+  let nav = await utilities.getNav();
+  if (!accountData) {
+      req.flash("notice", "No account data found.");
+      return res.redirect("/account/login");
+  }
+  const greeting = await utilities.buildGreeting(accountData);
+  res.render('account/account-management', {
       title: "Account Management",
       nav,
+      greeting,
       errors: null,
-  })
+  });
 }
+
 
 
 module.exports = {buildLogIn, buildRegister,registerAccount,accountLogin, accountManagement}

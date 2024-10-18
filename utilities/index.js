@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model")
+const accountModel = require("../models/account-model")
 const Util = {}
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
@@ -110,6 +111,34 @@ Util.buildClassificationGrid = async function(data){
 
 
 /* ****************************************
+ name for welcome 
+ **************************************** */
+ 
+ Util.buildGreeting = async function(accountData) {
+  let greeting;
+
+  if (accountData) {
+      if (accountData.account_type === "Client") {
+          greeting = `<h2>Welcome, ${accountData.account_firstname}</h2>`;
+          greeting += `<p>You're logged in`;
+          greeting += `<p><a href="/account/update">Edit Account Information</a></p>`;
+      } else if (accountData.account_type === "Employee" || accountData.account_type === "Admin") {
+          greeting = `<h2>Welcome, ${accountData.account_firstname}</h2>`;
+          greeting += `<p>You're logged in`;
+          greeting += `<p><a href="/account/update">Edit Account Information</a></p>`;
+          greeting += `<h3>Inventory Management</h3>`;
+          greeting += `<p><a href="/inv/">Access Inventory Management</a></p>`;
+      }
+  } else {
+      greeting = '<p class="notice">No account details available.</p>';
+  }
+
+  return greeting; // Return the constructed greeting
+}
+
+
+
+/* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 
  * General Error Handling
@@ -174,7 +203,7 @@ Util.checkJWTToken = (req, res, next) => {
     }
   };
   
-
+  
 
 
 
