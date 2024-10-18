@@ -5,7 +5,7 @@ const accountController = require("../controllers/accountController")
 const utilities = require("../utilities/")
 const regValidate = require('../utilities/account-validation')
 
-router.get("/login", utilities.handleErrors(accountController.buildLogIn));
+router.get("/login", utilities.checkJWTToken, utilities.handleErrors(accountController.buildLogIn));
 
 router.get("/register", utilities.handleErrors(accountController.buildRegister));
 

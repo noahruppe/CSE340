@@ -7,7 +7,6 @@ async function getClassifications(){
   return await pool.query("SELECT * FROM public.classification ORDER BY classification_name")
 }
 
-module.exports = {getClassifications}
 
 /* ***************************
  *  Get all inventory items and classification_name by classification_id
@@ -37,11 +36,26 @@ async function getDetailsByInvId(inv_id) {
           `SELECT * FROM public.inventory WHERE inv_id = $1`,
           [inv_id]
       );
+      return data.rows; // Return the first item
+  } catch (error) {
+      console.error("getDetailsByInvId error: " + error);
+  }
+}
+
+async function getDetailsByInvId1(inv_id) {
+  try {
+      const data = await pool.query(
+          `SELECT * FROM public.inventory WHERE inv_id = $1`,
+          [inv_id]
+      );
       return data.rows[0]; // Return the first item
   } catch (error) {
       console.error("getDetailsByInvId error: " + error);
   }
 }
+
+
+
 
 /* *****************************
 *   create new classification
@@ -136,6 +150,6 @@ async function deleteInventory(inv_id) {
   }
 }
 
-  module.exports = {getClassifications, getInventoryByClassificationId,getDetailsByInvId,submitClassification,checkExistingClassification,submitInventory,updateInventory,deleteInventory};
+  module.exports = {getClassifications, getInventoryByClassificationId,getDetailsByInvId,submitClassification,checkExistingClassification,submitInventory,updateInventory,deleteInventory,getDetailsByInvId1};
 
   

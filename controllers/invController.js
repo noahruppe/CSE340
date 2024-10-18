@@ -53,9 +53,9 @@ invDetail.buildByInvId = async function (req,res,next){
     const data = await invModel.getDetailsByInvId(inv_id)
     const lists = await utilities.buildInvIdInfo(data)
     let nav = await utilities.getNav()
-    const makename = data[0].inv_make
-    const modelname = data[0].inv_model
-    const caryear = data[0].inv_year
+    const makename = data.inv_make
+    const modelname = data.inv_model
+    const caryear = data.inv_year
     res.render("./inventory/details",{
         title: caryear + " " + makename + " " + modelname,
         nav,
@@ -220,7 +220,7 @@ invCont.getInventoryJSON = async (req, res, next) => {
 invCont.editInventoryView = async function (req, res, next) {
     const inv_id = parseInt(req.params.inv_id)
     let nav = await utilities.getNav()
-    const itemData = await invModel.getDetailsByInvId(inv_id)
+    const itemData = await invModel.getDetailsByInvId1(inv_id)
     const drop = await utilities.buildClassificationDrop(itemData.classification_id)
     const itemName = `${itemData.inv_make} ${itemData.inv_model}`
     res.render("./inventory/edit-inventory", {
@@ -271,7 +271,7 @@ invCont.updateInventory = async function (req,res,next){
         inv_year,
         inv_miles,
         inv_color,
-        classification_id
+        classification_id,
       )
 
       if (updateResult){
@@ -310,7 +310,7 @@ invCont.updateInventory = async function (req,res,next){
 invCont.deleteInventoryView = async function (req, res, next) {
     const inv_id = parseInt(req.params.inv_id)
     let nav = await utilities.getNav()
-    const itemData = await invModel.getDetailsByInvId(inv_id)
+    const itemData = await invModel.getDetailsByInvId1(inv_id)
     const drop = await utilities.buildClassificationDrop(itemData.classification_id)
     const itemName = `${itemData.inv_make} ${itemData.inv_model}`
     res.render("./inventory/delete-confirm", {

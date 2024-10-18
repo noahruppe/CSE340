@@ -13,7 +13,7 @@ router.get("/detail/:invId", utilities.handleErrors(invController.invDetail.buil
 
 router.get("/trigger-error", utilities.handleErrors(invController.errortry.triggerError));
 
-router.get("/", utilities.handleErrors(invController.buildManagement));
+router.get("/", utilities.accountType, utilities.handleErrors(invController.buildManagement));
 
 router.get("/classification", utilities.handleErrors(invController.buildClassificationForm));
 

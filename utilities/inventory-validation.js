@@ -61,8 +61,7 @@ validate.inventoryRules = () =>{
         .withMessage("Inventory Make is required")
         .isLength({ min: 3 })
         .withMessage("Inventory Make must be at least 3 letters long")
-        .matches(/^[A-Za-z]+$/)
-        .withMessage("Inventory Make must contain only letters"),
+        .matches(/[A-Za-z0-9\s]{3,}/),
 
 
         body("inv_model")

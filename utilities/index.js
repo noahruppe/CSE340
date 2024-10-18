@@ -77,9 +77,9 @@ Util.buildClassificationGrid = async function(data){
             lists += '<p class="p2">Color: ' + vehicle.inv_color + '</p>';
             lists += '<p class="p3">Miles: ' + new Intl.NumberFormat('en-US').format(vehicle.inv_miles) + '</p>';
             lists += '</li>';
-            lists += '</ul>'; // Correctly close the <ul> here
+            lists += '</ul>'; 
         });
-        lists += '</div>'; // Move the closing </div> outside the loop to wrap the entire content
+        lists += '</div>'; 
     } else {
         lists += '<p class="notice">Sorry, no matching vehicles could be found.</p>';
     }
@@ -151,6 +151,32 @@ Util.checkJWTToken = (req, res, next) => {
     return res.redirect("/account/login")
   }
  }
+
+  /* ****************************************
+ *  account Type
+ * ************************************ */
+
+  Util.accountType = (req, res, next) => {
+    if (res.locals.loggedin) {
+      const account_type = res.locals.accountData.account_type;
+      
+      if (account_type === "Employee" || account_type === "Admin") {
+        return next(); // User has the right access, proceed to the next middleware
+      } else {
+        // User is logged in but does not have sufficient access
+        req.flash("error", "Sign into an account with higher access");
+        return res.redirect("/account/login"); // Redirect to the login page
+      }
+    } else {
+      // User is not logged in
+      req.flash("error", "Please sign in to access this page.");
+      return res.redirect("/account/login"); // Redirect to the login page
+    }
+  };
+  
+
+
+
 
 
 

@@ -23,7 +23,7 @@
             </div>
             <div>
                 <label for="inv_make">Inventory Make: </label>
-                <input type="text" name="inv_make" id="inv_make" required minlength="3" pattern="[A-Za-z]{3,}" placeholder="Min of 3 characters"  value="<%= locals.inv_make%>" oninvalid="setCustomValidity('Please enter at least 3 alphabetic characters (A-Z) or spaces.')" oninput="setCustomValidity('')" >
+                <input type="text" name="inv_make" id="inv_make" required minlength="3" pattern="[A-Za-z0-9\s]{3,}" placeholder="Min of 3 characters"  value="<%= locals.inv_make%>" oninvalid="setCustomValidity('Please enter at least 3 alphabetic characters (A-Z) or spaces.')" oninput="setCustomValidity('')" >
             </div>
             <div>
                 <label for="inv_model">Inventory Model: </label>
@@ -35,7 +35,7 @@
             </div>
             <div>
                 <label for="inv_description">Inventory Description: </label>
-                <textarea name="inv_description" id="inv_description" rows="5" cols="50" required <%= locals.inv_description%>></textarea>
+                <textarea name="inv_description" id="inv_description" rows="5" cols="50" required><%= locals.inv_description %></textarea>
             </div>
             <div>
                 <label for="inv_image">Vehicle Image Path:</label>

@@ -104,7 +104,8 @@ async function accountLogin(req, res) {
      } else {
        res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
      }
-   return res.redirect("/account/")
+   return res.redirect("/account/") 
+   
    }
   } catch (error) {
    return new Error('Access Forbidden')
@@ -123,5 +124,6 @@ async function accountManagement (req,res,next){
       errors: null,
   })
 }
+
 
 module.exports = {buildLogIn, buildRegister,registerAccount,accountLogin, accountManagement}
