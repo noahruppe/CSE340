@@ -1,69 +1,78 @@
-<% if (title) {%>
-    <h1><%= title%> </h1>
-    <% }else {
-        res.redirect('/')
-    }%>
+<% if (title) { %>
+    <h1><%= title %> </h1>
+<% } else { %>
+    <script> window.location.href = '/'; </script>
+<% } %>
 
-    <%- messages() %>
-    
-    <% if (errors) { %>
-        <ul class="notice">
-       <% errors.array().forEach(error => { %>
-         <li><%= error.msg %></li>
-      <%  }) %>
-       </ul>
-      <% } %>
+<%- messages() %>
 
+<% if (errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error => { %>
+            <li><%= error.msg %></li>
+        <% }) %>
+    </ul>
+<% } %>
+
+<!-- Account Info Update Form -->
 <form action="update" method="post">
     <div class="info1">
         <div>
             <label for="Name">First Name: </label>
             <input type="text" name="account_firstname" id="account_firstname" required pattern="^[A-Za-z]+([ '-][A-Za-z]+)*$" 
-            title="Please enter a valid first name (letters only, with optional spaces, hyphens, or apostrophes)." value="<%- locals.accountData.account_firstname%>">
+            title="Please enter a valid first name (letters only, with optional spaces, hyphens, or apostrophes)." 
+            value="<%- locals.accountData.account_firstname %>">
         </div>
         <div>
             <label for="Name">Last Name: </label>
             <input type="text" name="account_lastname" id="the-lastname" required pattern="^[A-Za-z]+([ '-][A-Za-z]+)*$" 
-            title="Please enter a valid first name (letters only, with optional spaces, hyphens, or apostrophes)." value="<%- locals.accountData.account_lastname %>">
+            title="Please enter a valid last name (letters only, with optional spaces, hyphens, or apostrophes)." 
+            value="<%- locals.accountData.account_lastname %>">
         </div>
         <div>
             <label for="Email">Email: </label>
-            <input type="email" name="account_email" id="the-email1" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"  value="<%- locals.accountData.account_email %>">
+            <input type="email" name="account_email" id="the-email1" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"  
+            value="<%- locals.accountData.account_email %>">
         </div>
     </div>
     <button class="updateButton" type="submit">Submit</button>
-    <input type="hidden" name="account_id" id="account_id">
+    <input type="hidden" name="formType" value="accountInfo">
+    <input type="hidden" name="account_id" id="account_id" value="<%= locals.accountData.account_id %>">
 </form>
 
+<!-- Password Change Form -->
 <h2>Update Password</h2>
 <div class="passwordform">
-    <form action="update/password" method="post">
+    <form action="update" method="post">
         <div>
-        <p>*Note Your original password will be changed.</p>
+            <p>*Note Your original password will be changed.</p>
         </div>
-        <span class="infosaid">Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span> 
+        <span class="infosaid">Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter, and 1 special character</span> 
         <div>
-        <label for="password">Password: </label>
-        <input type="password" name="account_password" id="reg-password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+            <label for="password">Password: </label>
+            <input type="password" name="account_password" id="reg-password" required 
+            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
         </div>
-        <span id="secret-password">Show Password</span>
+        <div>
+            <span id="secret-password">Show Password</span>
+        </div>
+        <button class="changebutton" type="submit">Change Password</button>
+        <input type="hidden" name="formType" value="passwordChange">
+        <input type="hidden" name="account_id" id="account_id" value="<%= locals.accountData.account_id %>">
     </form>
-    <button class="changebutton" type="button">Change Password</button>
-    <input type="hidden" name="account_id" id="account_id">
 </div>
 
 <script>
     const secretpassword = document.querySelector("#secret-password");
-    secretpassword.addEventListener("click", function(){
-    const secretpasswordinput = document.getElementById("reg-password");
-    const type = secretpasswordinput.getAttribute("type");
-    if (type === "password") {
-        secretpasswordinput.setAttribute("type", "text");
-        secretpassword.innerHTML = "Hide Password";
-
-    }else {
-        secretpasswordinput.setAttribute("type", "password");
-        secretpassword.innerHTML = "Show Password";
-    }
-});
+    secretpassword.addEventListener("click", function() {
+        const secretpasswordinput = document.getElementById("reg-password");
+        const type = secretpasswordinput.getAttribute("type");
+        if (type === "password") {
+            secretpasswordinput.setAttribute("type", "text");
+            secretpassword.innerHTML = "Hide Password";
+        } else {
+            secretpasswordinput.setAttribute("type", "password");
+            secretpassword.innerHTML = "Show Password";
+        }
+    });
 </script>

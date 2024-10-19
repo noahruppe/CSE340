@@ -24,8 +24,6 @@ router.post(
   // Process the login attempt
 router.post(
     "/login",
-    regValidate.loginRules(), 
-    regValidate.checkLoginData,
     utilities.handleErrors(accountController.accountLogin)
 )
 
@@ -39,7 +37,6 @@ router.post(
     utilities.handleErrors(accountController.updateAccount),
 )
 
-router.post(
-    "/update/password"
-)
+
+
 module.exports = router;

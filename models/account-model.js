@@ -45,8 +45,9 @@ async function getAccountByEmail (account_email) {
 /* *****************************
 * update account logic 
 * ***************************** */
-async function updateAccount({ account_id, account_firstname, account_lastname, account_email }) {
+async function updateAccount({ account_id, account_firstname, account_lastname, account_email, account_password }) {
   try {
+    // Start with updating the account details (firstname, lastname, email)
     const sql = `
       UPDATE account
       SET account_firstname = $1, 
@@ -56,19 +57,42 @@ async function updateAccount({ account_id, account_firstname, account_lastname, 
       RETURNING *;
     `;
 
-    const data = await pool.query(sql, [
+    const updatedAccount = await pool.query(sql, [
       account_firstname,
       account_lastname,
       account_email,
       account_id,
     ]);
 
-    return data.rows[0]; // Return the updated account
+    // If account_password is provided, hash it and update the password
+    if (account_password) {
+      const hashedPassword = await bcrypt.hash(account_password, 10);
+
+      const passwordSQL = `
+        UPDATE account
+        SET account_password = $1
+        WHERE account_id = $2
+        RETURNING *;
+      `;
+
+      const updatedPassword = await pool.query(passwordSQL, [
+        hashedPassword,
+        account_id,
+      ]);
+
+      // If no rows were affected, throw an error for password update failure
+      if (!updatedPassword.rows.length) {
+        throw new Error("Failed to update password in the database.");
+      }
+    }
+
+    return updatedAccount.rows[0]; // Return the updated account data
   } catch (error) {
     console.error("Error updating account:", error);
-    throw new Error("Failed to update account in the database.");
+    throw new Error("Failed to update account and/or password in the database.");
   }
 }
+
 
 // process the new password 
 
