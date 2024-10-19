@@ -13,6 +13,8 @@ router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.a
 
 router.get("/update/:account_id", utilities.checkJWTToken, utilities.handleErrors(accountController.buildUpdateView))
 
+router.get('/logout', utilities.checkJWTToken, accountController.timeToLogOut);
+
 // post 
 router.post(
     "/register",

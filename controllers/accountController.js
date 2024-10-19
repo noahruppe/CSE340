@@ -261,7 +261,38 @@ async function updateAccount(req, res) {
   }
 }
 
+/* ****************************************
+*  logic to update account
+* *************************************** */
+
+async function timeToLogOut(req, res) {
+  let nav = await utilities.getNav(); // Assuming you want to get navigation similar to other functions
+
+  try {
+      // Clear the JWT cookie
+      res.clearCookie("jwt");
+
+      // Set a flash message to notify the user
+      req.flash("notice", "You have been logged out successfully.");
+
+      // Redirect the user to the home view
+      return res.redirect("/");
+  } catch (error) {
+      // Log the error for debugging purposes
+      console.error("Error during logout: ", error);
+
+      // Optional: Handle errors and render an appropriate view if necessary
+      req.flash("error", "An error occurred while logging out. Please try again.");
+      return res.render("account/error", {
+          title: "Error",
+          nav,
+          errors: null,
+      });
+  }
+}
 
 
 
-module.exports = {buildLogIn, buildRegister,registerAccount,accountLogin, accountManagement, buildUpdateView, updateAccount,}
+
+
+module.exports = {buildLogIn, buildRegister,registerAccount,accountLogin, accountManagement, buildUpdateView, updateAccount,timeToLogOut}
