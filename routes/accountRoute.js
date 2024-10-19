@@ -11,7 +11,7 @@ router.get("/register", utilities.handleErrors(accountController.buildRegister))
 
 router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.accountManagement))
 
-router.get("/update/account_id:", utilities.checkJWTToken, utilities.handleErrors(accountController.buildUpdateview))
+router.get("/update/:account_id", utilities.checkJWTToken, utilities.handleErrors(accountController.buildUpdateView))
 
 // post 
 router.post(

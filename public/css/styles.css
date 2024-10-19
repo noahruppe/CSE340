@@ -296,6 +296,47 @@ footer{
   width: 55%;
   margin-top: 10px;
 }
+.info1{
+  display: flex;
+  flex-direction: column;
+}
+.info1 div{
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin-top: 10px;
+}
+.info1 button{
+  width: 500px;
+}
+.updateButton{
+  width: 30%;
+  margin-top: 10px;
+}
+#account_firstname{
+  font-weight: 700;
+  font-size: larger;
+}
+#the-lastname{
+  font-weight: 700;
+  font-size: larger;
+}
+#the-email1{
+  font-weight: 700;
+  font-size: larger;
+}
+.passwordform div{
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin-top: 10px;
+}
+#reg-password{
+  margin-bottom: 10px;
+}
+.changebutton{
+  margin-top: 10px;
+}
 
 @media (min-width:900px){
   body{
@@ -516,6 +557,47 @@ footer{
   }
   #inventoryDisplay tbody tr:nth-child(odd){
     background-color: rgb(206 206 206);
+  }
+  .info1{
+    display: flex;
+    flex-direction: column;
+  }
+  .info1 div{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    margin-top: 10px;
+  }
+  .info1 button{
+    width: 500px;
+  }
+  .updateButton{
+    width: 9%;
+    margin-top: 10px;
+  }
+  #account_firstname{
+    font-weight: 700;
+    font-size: larger;
+  }
+  #the-lastname{
+    font-weight: 700;
+    font-size: larger;
+  }
+  #the-email1{
+    font-weight: 700;
+    font-size: larger;
+  }
+  .passwordform div{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    margin-top: 10px;
+  }
+  #reg-password{
+    margin-bottom: 10px;
+  }
+  .changebutton{
+    margin-top: 10px;
   }
 
 }

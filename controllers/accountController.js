@@ -132,6 +132,23 @@ async function accountManagement(req, res, next) {
   });
 }
 
+/* ****************************************
+*  build update view
+* *************************************** */
+async function buildUpdateView (req,res,next) {
+  let nav = await utilities.getNav()
+  const accountData = res.locals.accountData
+  if(!accountData.account_id){
+    req.flash("notice", "No account found")
+    res.redirect("account/login")
+  }else{
+    res.render("account/update", {
+      title: "Edit Account",
+      nav,
+      errors: null,
+    })
+  }
+}
 
 
-module.exports = {buildLogIn, buildRegister,registerAccount,accountLogin, accountManagement}
+module.exports = {buildLogIn, buildRegister,registerAccount,accountLogin, accountManagement, buildUpdateView}

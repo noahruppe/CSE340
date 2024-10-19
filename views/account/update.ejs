@@ -19,29 +19,50 @@
         <div>
             <label for="Name">First Name: </label>
             <input type="text" name="account_firstname" id="account_firstname" required pattern="^[A-Za-z]+([ '-][A-Za-z]+)*$" 
-            title="Please enter a valid first name (letters only, with optional spaces, hyphens, or apostrophes)." value="<% locals.account_firstname%>">
+            title="Please enter a valid first name (letters only, with optional spaces, hyphens, or apostrophes)." value="<%- locals.accountData.account_firstname%>">
         </div>
         <div>
             <label for="Name">Last Name: </label>
             <input type="text" name="account_lastname" id="the-lastname" required pattern="^[A-Za-z]+([ '-][A-Za-z]+)*$" 
-            title="Please enter a valid first name (letters only, with optional spaces, hyphens, or apostrophes)." value="<%= locals.account_lastname %>">
+            title="Please enter a valid first name (letters only, with optional spaces, hyphens, or apostrophes)." value="<%- locals.accountData.account_lastname %>">
         </div>
         <div>
             <label for="Email">Email: </label>
-            <input type="email" name="account_email" id="reg-email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"  value="<%= locals.account_email %>">
+            <input type="email" name="account_email" id="the-email1" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"  value="<%- locals.accountData.account_email %>">
         </div>
     </div>
-    <button type="submit"></button>
+    <button class="updateButton" type="submit">Submit</button>
     <input type="hidden" name="account_id" id="account_id">
 </form>
 
 <h2>Update Password</h2>
 <div class="passwordform">
     <form action="update">
-        <label for="password">Password: </label>
+        <div>
         <p>*Note Your original password will be changed.</p>
+        </div>
         <span class="infosaid">Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span> 
+        <div>
+        <label for="password">Password: </label>
         <input type="password" name="account_password" id="reg-password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+        </div>
         <span id="secret-password">Show Password</span>
     </form>
+    <button class="changebutton" type="button">Change Password</button>
 </div>
+
+<script>
+    const secretpassword = document.querySelector("#secret-password");
+    secretpassword.addEventListener("click", function(){
+    const secretpasswordinput = document.getElementById("reg-password");
+    const type = secretpasswordinput.getAttribute("type");
+    if (type === "password") {
+        secretpasswordinput.setAttribute("type", "text");
+        secretpassword.innerHTML = "Hide Password";
+
+    }else {
+        secretpasswordinput.setAttribute("type", "password");
+        secretpassword.innerHTML = "Show Password";
+    }
+});
+</script>

@@ -121,11 +121,11 @@ Util.buildClassificationGrid = async function(data){
       if (accountData.account_type === "Client") {
           greeting = `<h2>Welcome, ${accountData.account_firstname}</h2>`;
           greeting += `<p>You're logged in`;
-          greeting += `<p><a href="/account/update">Edit Account Information</a></p>`;
+          greeting += `<p><a href="/account/update/${accountData.account_id}">Edit Account Information</a></p>`;
       } else if (accountData.account_type === "Employee" || accountData.account_type === "Admin") {
           greeting = `<h2>Welcome, ${accountData.account_firstname}</h2>`;
           greeting += `<p>You're logged in`;
-          greeting += `<p><a href="/account/update">Edit Account Information</a></p>`;
+          greeting += `<p><a href="/account/update/${accountData.account_id}">Edit Account Information</a></p>`;
           greeting += `<h3>Inventory Management</h3>`;
           greeting += `<p><a href="/inv/">Access Inventory Management</a></p>`;
       }
