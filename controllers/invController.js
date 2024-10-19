@@ -51,11 +51,12 @@ invCont.buildByClassificationId = async function (req, res, next) {
 invDetail.buildByInvId = async function (req,res,next){
     const inv_id = req.params.invId
     const data = await invModel.getDetailsByInvId(inv_id)
-    const lists = await utilities.buildInvIdInfo(data)
+    const data2 = await invModel.getDetailsByInvId1(inv_id)
+    const lists = await utilities.buildInvIdInfo(data,data2)
     let nav = await utilities.getNav()
-    const makename = data.inv_make
-    const modelname = data.inv_model
-    const caryear = data.inv_year
+    const makename = data2.inv_make
+    const modelname = data2.inv_model
+    const caryear = data2.inv_year
     res.render("./inventory/details",{
         title: caryear + " " + makename + " " + modelname,
         nav,
