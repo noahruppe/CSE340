@@ -37,7 +37,7 @@
 
 <h2>Update Password</h2>
 <div class="passwordform">
-    <form action="update">
+    <form action="update/password" method="post">
         <div>
         <p>*Note Your original password will be changed.</p>
         </div>
@@ -49,6 +49,7 @@
         <span id="secret-password">Show Password</span>
     </form>
     <button class="changebutton" type="button">Change Password</button>
+    <input type="hidden" name="account_id" id="account_id">
 </div>
 
 <script>

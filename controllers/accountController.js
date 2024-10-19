@@ -150,5 +150,125 @@ async function buildUpdateView (req,res,next) {
   }
 }
 
+/* ****************************************
+*  logic to update account
+* *************************************** */
+async function updateAccount(req, res) {
+  let nav = await utilities.getNav();
+  const { account_id, account_firstname, account_lastname, account_email } = req.body;
+  const accountData = res.locals.accountData;
 
-module.exports = {buildLogIn, buildRegister,registerAccount,accountLogin, accountManagement, buildUpdateView}
+  if (!accountData.account_id) {
+    req.flash("notice", "Account not found");
+    return res.status(400).render("account/update", {
+      title: "Edit Account",
+      nav,
+      errors: null,
+      account_id,
+      account_firstname,
+      account_lastname,
+      account_email,
+      accountData,
+    });
+  }
+
+  try {
+    const updatedAccount = await accountModel.updateAccount({
+      account_id: accountData.account_id,
+      account_firstname,
+      account_lastname,
+      account_email,
+    });
+
+    if (updatedAccount) {
+      const newAccessToken = jwt.sign({
+        account_id: updatedAccount.account_id,
+        account_firstname: updatedAccount.account_firstname,
+        account_lastname: updatedAccount.account_lastname,
+        account_email: updatedAccount.account_email,
+        account_type: updatedAccount.account_type, 
+      }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 }); 
+
+      if (process.env.NODE_ENV === 'development') {
+        res.cookie("jwt", newAccessToken, { httpOnly: true, maxAge: 3600 * 1000 });
+      } else {
+        res.cookie("jwt", newAccessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 });
+      }
+
+      req.flash("notice", "The account update was successful.");
+      return res.redirect("/account/");
+    } else {
+      req.flash("notice", "Failed to update account. Please try again.");
+      return res.render("account/update", {
+        title: "Edit Account",
+        nav,
+        errors: null,
+        account_firstname,
+        account_lastname,
+        account_email,
+        accountData,
+      });
+    }
+  } catch (error) {
+    console.error("Update Account Error: ", error);
+    req.flash("error", "There was an issue updating your account. Please try again.");
+    return res.status(500).render("account/update", {
+      title: "Edit Account",
+      nav,
+      errors: null,
+      account_firstname,
+      account_lastname,
+      account_email,
+    });
+  }
+}
+
+
+/* ****************************************
+*  set new password 
+* *************************************** */
+async function setNewPassword(req, res) {
+  let nav = await utilities.getNav();
+  const { account_password } = req.body; // Get the new password from the request body
+
+  // Get the current account data from res.locals
+  const accountData = res.locals.accountData;
+
+  // Check if accountData exists
+  if (!accountData || !accountData.account_id) {
+      req.flash("notice", "Account not found");
+      return res.redirect("account/login"); // Redirect to login if account not found
+  }
+
+  try {
+      // Hash the new password
+      const hashedPassword = await bcrypt.hash(account_password, 10);
+
+      // Call a method to update the password in the database
+      const updateResult = await accountModel.updatePassword(accountData.account_id, hashedPassword);
+
+      if (updateResult) {
+          req.flash("notice", "Your password has been successfully updated.");
+          return res.redirect("/account/"); // Redirect to the account management page
+      } else {
+          req.flash("notice", "Failed to update password. Please try again.");
+          return res.render("account/update", {
+              title: "Change Password",
+              nav,
+              errors: null,
+              account_id: accountData.account_id, // Pass the account ID for the form
+          });
+      }
+  } catch (error) {
+      req.flash("error", "There was an issue updating your password. Please try again.");
+      return res.status(500).render("account/update", {
+          title: "Change Password",
+          nav,
+          errors: null,
+          account_id: accountData.account_id, // Pass the account ID for the form
+      });
+  }
+}
+
+
+module.exports = {buildLogIn, buildRegister,registerAccount,accountLogin, accountManagement, buildUpdateView, updateAccount,setNewPassword}

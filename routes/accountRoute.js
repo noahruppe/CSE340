@@ -29,4 +29,17 @@ router.post(
     utilities.handleErrors(accountController.accountLogin)
 )
 
+//process the update account
+
+router.post(
+    "/update/:account_id",
+    utilities.checkJWTToken,
+    regValidate.UpdateRules(),
+    regValidate.checkUpdateData,
+    utilities.handleErrors(accountController.updateAccount),
+)
+
+router.post(
+    "/update/password"
+)
 module.exports = router;

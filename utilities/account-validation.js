@@ -121,6 +121,129 @@ validate.checkLoginData = async (req, res, next) => {
     
     next()
   }
+
+
+// make the update rules 
+validate.UpdateRules = () => {
+    return [
+        // Firstname: validate only if it's changed from the original
+        body("account_firstname")
+            .custom((value, { req }) => {
+                // Access accountData from res.locals
+                const originalFirstname = req.res.locals.accountData.account_firstname; // Correctly using res
+                if (value !== originalFirstname) {
+                    if (!value.trim()) {
+                        throw new Error("Please provide a valid first name.");
+                    }
+                    if (value.length < 1) {
+                        throw new Error("First name must be at least 1 character long.");
+                    }
+                }
+                return true; // No validation if unchanged
+            }),
+
+        // Lastname: validate only if it's changed from the original
+        body("account_lastname")
+            .custom((value, { req }) => {
+                const originalLastname = req.res.locals.accountData.account_lastname; // Correctly using res
+                if (value !== originalLastname) {
+                    if (!value.trim()) {
+                        throw new Error("Please provide a valid last name.");
+                    }
+                    if (value.length < 2) {
+                        throw new Error("Last name must be at least 2 characters long.");
+                    }
+                }
+                return true; // No validation if unchanged
+            }),
+
+        // Email: validate only if it's changed from the original
+        body("account_email")
+            .custom(async (value, { req }) => {
+                const originalEmail = req.res.locals.accountData.account_email; // Correctly using res
+                if (value !== originalEmail) {
+                    if (!value.trim()) {
+                        throw new Error("A valid email is required.");
+                    }
+                    const emailExists = await accountModel.checkExistingEmail(value);
+                    if (emailExists) {
+                        throw new Error("Email already exists. Please use a different email.");
+                    }
+                }
+                return true; // No validation if unchanged
+            }),
+    ];
+};
+
+  
+
+
+
+//check update account info 
+
+validate.checkUpdateData = async (req, res, next) => {
+    const { account_firstname, account_lastname, account_email } = req.body
+    let errors = validationResult(req) // Get validation errors
+    
+    if (!errors.isEmpty()) {
+      let nav = await utilities.getNav()
+      
+      // If there are validation errors, re-render the form with the errors and original values
+      return res.render("account/update", {
+        errors,                      
+        title: "Edit Account",        
+        nav,                           
+        account_firstname,             
+        account_lastname,              
+        account_email,                 
+      })
+    }
+
+    next() // Proceed to the next middleware if no errors
+}
+
+
+//update the password rules 
+
+validate.UpdatePasswordRules = () => {
+    return [
+      // Password is optional, but if provided, it must meet the strong password requirements
+      body("account_password")
+        .optional({ checkFalsy: true }) // Only validate if the password is provided
+        .trim()
+        .isStrongPassword({
+          minLength: 12,
+          minLowercase: 1,
+          minUppercase: 1,
+          minNumbers: 1,
+          minSymbols: 1,
+        })
+        .withMessage("Password does not meet requirements."),
+    ];
+  }
+
+
+  // password check 
+
+  validate.checkPasswordData = async (req, res, next) => {
+    const { account_password } = req.body;
+    let errors = validationResult(req); // Get validation errors
+
+    if (!errors.isEmpty()) {
+        let nav = await utilities.getNav();
+        
+        // If there are validation errors for the password, re-render the password update form
+        return res.render("account/update", {
+            errors, 
+            title: "Change Password", 
+            nav, 
+            account_password, 
+        });
+    }
+
+    next(); // Proceed if no errors
+};
+
   
   
   module.exports = validate

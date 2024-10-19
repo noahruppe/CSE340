@@ -42,4 +42,56 @@ async function getAccountByEmail (account_email) {
   }
 }
 
-module.exports = {registerAccount, checkExistingEmail, getAccountByEmail};
+/* *****************************
+* update account logic 
+* ***************************** */
+async function updateAccount({ account_id, account_firstname, account_lastname, account_email }) {
+  try {
+    const sql = `
+      UPDATE account
+      SET account_firstname = $1, 
+          account_lastname = $2, 
+          account_email = $3
+      WHERE account_id = $4
+      RETURNING *;
+    `;
+
+    const data = await pool.query(sql, [
+      account_firstname,
+      account_lastname,
+      account_email,
+      account_id,
+    ]);
+
+    return data.rows[0]; // Return the updated account
+  } catch (error) {
+    console.error("Error updating account:", error);
+    throw new Error("Failed to update account in the database.");
+  }
+}
+
+// process the new password 
+
+async function updatePassword(account_id, hashedPassword) {
+  try {
+      const sql = `
+          UPDATE account 
+          SET account_password = $1 
+          WHERE account_id = $2
+          RETURNING *;
+      `;
+
+      const result = await pool.query(sql, [hashedPassword, account_id]);
+
+      // Check if a row was affected (updated)
+      return result.rowCount > 0; // returns true if the password was updated successfully
+  } catch (error) {
+      console.error("Error updating password:", error);
+      throw new Error("Database error while updating password."); // Handle error as needed
+  }
+}
+
+
+
+
+module.exports = {registerAccount, checkExistingEmail, getAccountByEmail,updateAccount,updatePassword};
