@@ -599,6 +599,21 @@ footer{
   .changebutton{
     margin-top: 10px;
   }
+  .search{
+    background-color: rgb(206 206 206);
+    margin-top: 20px;
+  }
+  .search thead{
+    background-color: black;
+    color: white;
+  }
+  .search tbody tr{
+    background-color: white;
+    text-decoration: none;
+  }
+  .search tbody tr:nth-child(odd){
+    background-color: rgb(206 206 206);
+  }
 
 }
 @media (min-width: 1200px){

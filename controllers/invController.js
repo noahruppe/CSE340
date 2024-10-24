@@ -369,8 +369,81 @@ invCont.deleteInventory = async function (req,res,next){
             drop,
         })
       }
-
 }
+
+/* ****************************************
+*  build search view
+* *************************************** */
+
+async function buildSearchView(req, res, next) {
+    let nav = await utilities.getNav();
+    const drop = await utilities.buildClassificationDropNone();
+
+    res.render("inventory/search", {
+        title: "Search Form",
+        nav,
+        drop,
+        errors: null,
+        searchResults: null, // Initially set to null or empty
+        table: null, // You can initialize the table here if you want
+    });
+}
+
+/* ****************************************
+*  search view logic
+* *************************************** */
+
+invCont.searchInventory = async function (req, res, next) {
+    let nav = await utilities.getNav();
+    const {
+        classification_id, inv_make, inv_model, inv_year, inv_description,
+        inv_price, inv_miles, inv_color
+    } = req.body;
+
+    
+    const searchCriteria = {};
+    if (classification_id) searchCriteria.classification_id = classification_id;
+    if (inv_make) searchCriteria.inv_make = inv_make;
+    if (inv_model) searchCriteria.inv_model = inv_model;
+    if (inv_year) searchCriteria.inv_year = inv_year;
+    if (inv_description) searchCriteria.inv_description = inv_description;
+    if (inv_price) searchCriteria.inv_price = inv_price;
+    if (inv_miles) searchCriteria.inv_miles = inv_miles;
+    if (inv_color) searchCriteria.inv_color = inv_color;
+
+    const searchResults = await invModel.searchResults(searchCriteria);
+
+    const table = await utilities.buildSearchResultsTable(searchResults);
+
+    if (Array.isArray(searchResults) && searchResults.length > 0) {
+        req.flash("notice", "Here are your search results.");
+        res.render("inventory/search", {
+            title: "Search Form",
+            nav,
+            drop: await utilities.buildClassificationDropNone(),
+            table,
+            searchResults,
+            errors: null,
+        });
+    } else {
+        req.flash("notice", "No results found.");
+        res.render("inventory/search", {
+            title: "Search Form",
+            nav,
+            drop: await utilities.buildClassificationDropNone(),
+            table: null,
+            searchResults: null,
+            errors: null,
+        });
+    }
+};
+
+
+
+
+
+
+
 
 module.exports = {
     invCont,
@@ -381,4 +454,5 @@ module.exports = {
     submitClassification,
     inventory,
     submitInventory,
+    buildSearchView,
 };

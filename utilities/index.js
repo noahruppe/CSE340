@@ -111,6 +111,29 @@ Util.buildClassificationGrid = async function(data){
 
 
 /* ****************************************
+ build for drop down for the none required one 
+ **************************************** */
+
+Util.buildClassificationDropNone = async function (classification_id = null) {
+  let data = await invModel.getClassifications()
+  let drop =
+    '<select name="classification_id" id="drop">'
+  drop += "<option value=''>Choose a Classification</option>"
+  data.rows.forEach((row) => {
+    drop += '<option value="' + row.classification_id + '"'
+    if (
+      classification_id != null &&
+      row.classification_id == classification_id
+    ) {
+      drop += " selected "
+    }
+    drop += ">" + row.classification_name + "</option>"
+  })
+  drop += "</select>"
+  return drop
+}
+
+/* ****************************************
  name for welcome 
  **************************************** */
  
@@ -135,6 +158,30 @@ Util.buildClassificationGrid = async function(data){
 
   return greeting; // Return the constructed greeting
 }
+
+
+/* ****************************************
+ table for the search form 
+ **************************************** */
+
+Util.buildSearchResultsTable = function (searchResults) {
+  let table = '<table class="search">';
+
+
+  searchResults.forEach(result => {
+      table += `
+          <tr>
+              <td>${result.inv_year}</td>
+              <td>${result.inv_make}</td>
+              <td>${result.inv_model}</td>
+              <td><a href="/inv/detail/${result.inv_id}">View</a></td>
+          </tr>
+      `;
+  });
+
+  table += '</tbody></table>';
+  return table;
+};
 
 
 

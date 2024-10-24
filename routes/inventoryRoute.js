@@ -25,6 +25,8 @@ router.get("/edit/:inv_id", utilities.handleErrors(invController.invCont.editInv
 
 router.get("/delete/:inv_id", utilities.handleErrors(invController.invCont.deleteInventoryView))
 
+router.get("/search", utilities.handleErrors(invController.buildSearchView))
+
 router.post("/classification", 
     regValidate.classificationRules(),
     regValidate.checkClassificationData,
@@ -45,6 +47,13 @@ router.post("/edit/:inv_id",
 
 router.post("/delete/:inv_id",
     utilities.handleErrors(invController.invCont.deleteInventory)
+)
+
+router.post(
+    "/search",
+    regValidate.searchRules(),
+    regValidate.searchCheck,
+    utilities.handleErrors(invController.invCont.searchInventory)
 )
 
 module.exports = router;

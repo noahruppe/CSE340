@@ -150,6 +150,29 @@ async function deleteInventory(inv_id) {
   }
 }
 
-  module.exports = {getClassifications, getInventoryByClassificationId,getDetailsByInvId,submitClassification,checkExistingClassification,submitInventory,updateInventory,deleteInventory,getDetailsByInvId1};
+
+/* ***************************
+ *  Search form
+ * ************************** */
+
+async function searchResults (searchCriteria) {
+  let query = "SELECT * FROM inventory WHERE 1=1";  
+
+  
+  if (searchCriteria.classification_id) query += ` AND classification_id = ${searchCriteria.classification_id}`;
+  if (searchCriteria.inv_make) query += ` AND inv_make ILIKE '%${searchCriteria.inv_make}%'`;
+  if (searchCriteria.inv_model) query += ` AND inv_model ILIKE '%${searchCriteria.inv_model}%'`;
+  if (searchCriteria.inv_year) query += ` AND inv_year = ${searchCriteria.inv_year}`;
+  if (searchCriteria.inv_description) query += ` AND inv_description ILIKE '%${searchCriteria.inv_description}%'`;
+  if (searchCriteria.inv_price) query += ` AND inv_price <= ${searchCriteria.inv_price}`;
+  if (searchCriteria.inv_miles) query += ` AND inv_miles <= ${searchCriteria.inv_miles}`;
+  if (searchCriteria.inv_color) query += ` AND inv_color ILIKE '%${searchCriteria.inv_color}%'`;
+
+  const result = await pool.query(query);
+  return result.rows;
+};
+
+
+  module.exports = {getClassifications, getInventoryByClassificationId,getDetailsByInvId,submitClassification,checkExistingClassification,submitInventory,updateInventory,deleteInventory,getDetailsByInvId1, searchResults};
 
   
